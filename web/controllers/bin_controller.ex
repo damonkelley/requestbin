@@ -20,13 +20,13 @@ defmodule RequestBin.BinController do
   def show(%Plug.Conn{method: "GET"} = conn, %{"name" => name, "inspect" => "true"}) do
     bin = Bin
     |> Bin.with_requests
-    |> Repo.get_by(name: name)
+    |> Repo.get_by!(name: name)
 
     render conn, "show.html", bin: bin
   end
 
   def show(conn, %{"name" => name}) do
-    Repo.get_by(Bin, name: name)
+    Repo.get_by!(Bin, name: name)
     |> build_assoc(:requests)
     |> Request.from_conn(conn)
     |> Repo.insert!

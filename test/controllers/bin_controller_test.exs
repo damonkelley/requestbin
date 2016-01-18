@@ -33,6 +33,34 @@ defmodule RequestBin.BinControllerTest do
     assert html_response(conn, 200) =~ "2 Requests"
   end
 
+  test "GET /:name?inspect=true with invalid key is 404" do
+    key = :crypto.strong_rand_bytes(10) |> Base.encode16(case: :lower)
+
+    assert_raise Ecto.NoResultsError, fn ->
+      get conn, bin_path(conn, :show, key)
+    end 
+
+    {_, _, body} = assert_error_sent 404, fn ->
+      get conn, bin_path(conn, :show, key, inspect: true)
+    end
+
+    assert body =~ "not found"
+  end
+
+  test "GET /:name with invalid key is 404" do
+    key = :crypto.strong_rand_bytes(10) |> Base.encode16(case: :lower)
+
+    assert_raise Ecto.NoResultsError, fn ->
+      get conn, bin_path(conn, :show, key)
+    end 
+
+    {_, _, body} = assert_error_sent 404, fn ->
+      get conn, bin_path(conn, :show, key)
+    end
+
+    assert body =~ "not found"
+  end
+
   test "Any method to bin gets 'ok'", %{conn: _conn} do
     methods = [:get, :options, :patch, :post, :put, :delete, :connect, :trace]
     bin = Repo.insert!(%Bin{})
