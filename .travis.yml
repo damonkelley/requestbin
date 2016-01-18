@@ -1,13 +1,21 @@
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
 services:
-  - postgresql
+- postgresql
 language: elixir
 elixir:
-  - 1.2.0
+- 1.2.0
 otp_release:
-  - 18.0
+- 18.0
 env:
-  - MIX_ENV=test
+- MIX_ENV=test
 before_script:
-  - mix ecto.create
+- mix ecto.create
+deploy:
+  provider: heroku
+  api_key:
+    secure: CKPVnUSK73QpALQmfgFqadqRvSW9xExUBBXWEv8Z9JbZQlIftB17SOiFqzl+a7jgcGWzYVCTTdeqcjVqiHAzDPX/0tDzx2pFqjx+s0lbI1T0XfAMdAkTz63K1ckcqmcF8fRb4cyPmEB+eW+eiGtKcaV89ixjv6gKzeeywwbA0wy+AvHUQfxacoi3rkI2JtwNI1UiMAEIe/GjOHtFVAriRuUsJKEemGYVfr5X4zihP649CIT61weu9YbSTudGZ38xHc03CqhCCXzIxlX5EBhKpxfC5g0amhWCmhvgqMF15fFBuW+VxPfw8TPul3w3lkzeESR1u8Sad8E/SQRdpVhxL9sxdn7p+C1KslWEsQiNtXoTDeCxB9GWbTEHUv9TLAv+Cy2FQrvR3pft+ktyt3cebG32ktayncrJrtkmTzk2OwzJjL2MgnhgezBs0cHb2+mubTMqlzm2lOzS5lB4rgom7QLmsEGpveDXOQecPxRXcFI9AtuOhhbIAXTwxKZeaK6iFz3zraMMkMQwYIuhA3wGziXzw8mHMjzjwGuZuAaNxM/pXr8VAEXLXpbn8A2Hsj62UEkl4UhCQDz3dJLZKsy1rKfg9h8plQ6I2vocH4+I6MGXr+UPbZK8oDxwvbuUwsluRG627JveSE7U6cX/PoWMe3fv5N1rq8jvySCiSCX8Rto=
+  run: "mix ecto.migrate"
+  app: guarded-earth-3397
+  on:
+    repo: damonkelley/requestbin
