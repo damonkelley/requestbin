@@ -1,23 +1,21 @@
-<div class="jumbotron">
 <h2><%= Enum.count @bin.requests %> Requests</h2>
-</div>
+<p>Point your <code>curl</code> here &rarr; <strong><%= bin_url @conn, :show, @bin.name %></strong></p>
 
-  <%= for request <- @bin.requests do %>
-<ul>
-    <li>Method: <%= request.method %></li>
-    <li>Headers:
-        <%= if request.headers do %>
-          <ul>
-            <%= for {header, body} <- request.headers do %>
-              <li><%= header %>: <%= body %></li>
-            <%= end %>
-          </ul>
-        <%= else %>
-          None
-        <%= end %>
-    </li>
-    <li>Body: <%= request.body %></li>
-    <li>Remote IP: <%= request.remote_ip %></li>
-</ul>
-  <%= end %>
-
+<%= for request <- @bin.requests do %>
+  <ul>
+      <li>Method: <%= request.method %></li>
+      <li>Headers:
+          <%= if request.headers do %>
+            <ul>
+              <%= for {header, body} <- request.headers do %>
+                <li><%= header %>: <%= body %></li>
+              <%= end %>
+            </ul>
+          <%= else %>
+            None
+          <%= end %>
+      </li>
+      <li>Body: <%= request.body %></li>
+      <li>Remote IP: <%= request.remote_ip %></li>
+  </ul>
+<%= end %>

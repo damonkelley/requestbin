@@ -1,9 +1,8 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
 
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+  <p>A blatant copy of http://requestb.in</p>
 </div>
 
 <%= form_for @changeset, bin_path(@conn, :create), fn _ -> %>
-  <%= submit "Create a Bin" %>
+  <%= submit "Create a new Bin" %>
 <% end %>
