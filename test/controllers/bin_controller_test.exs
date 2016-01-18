@@ -37,7 +37,7 @@ defmodule RequestBin.BinControllerTest do
     key = :crypto.strong_rand_bytes(10) |> Base.encode16(case: :lower)
 
     assert_raise Ecto.NoResultsError, fn ->
-      get conn, bin_path(conn, :show, key)
+      get conn, bin_path(conn, :show, key, inspect: true)
     end 
 
     {_, _, body} = assert_error_sent 404, fn ->
