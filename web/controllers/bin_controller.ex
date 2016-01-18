@@ -3,8 +3,11 @@ defmodule RequestBin.BinController do
 
   alias RequestBin.{Bin, Request}
 
+  plug :protect_from_forgery when action in [:index, :create]
+
   def index(conn, _params) do
-    render conn, "index.html"
+    changeset = Bin.changeset(%Bin{})
+    render conn, "index.html", changeset: changeset
   end
 
   def create(conn, _params) do
@@ -19,8 +22,7 @@ defmodule RequestBin.BinController do
     |> Bin.with_requests
     |> Repo.get_by(name: name)
 
-    conn = assign(conn, :bin, bin)
-    render conn, "show.html"
+    render conn, "show.html", bin: bin
   end
 
   def show(conn, %{"name" => name}) do
