@@ -28,7 +28,7 @@ defmodule RequestBin.BinController do
   def show(conn, %{"name" => name}) do
     Repo.get_by!(Bin, name: name)
     |> build_assoc(:requests)
-    |> Request.from_conn(conn)
+    |> Request.Helper.from_conn(conn)
     |> Repo.insert!
 
     text conn, "ok"
