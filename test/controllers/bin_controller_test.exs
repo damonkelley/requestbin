@@ -23,7 +23,7 @@ defmodule RequestBin.BinControllerTest do
       Repo.insert!(%{request | method: "GET"})
     end)
 
-    # Add some other requests to make sure only the requests from the 
+    # Add some other requests to make sure only the requests from the
     # requested bin are retrieved.
     other_bin = Repo.insert!(%Bin{})
     request = build_assoc(other_bin, :requests)
@@ -38,7 +38,7 @@ defmodule RequestBin.BinControllerTest do
 
     assert_raise Ecto.NoResultsError, fn ->
       get conn, bin_path(conn, :show, key, inspect: true)
-    end 
+    end
 
     {_, _, body} = assert_error_sent 404, fn ->
       get conn, bin_path(conn, :show, key, inspect: true)
@@ -52,7 +52,7 @@ defmodule RequestBin.BinControllerTest do
 
     assert_raise Ecto.NoResultsError, fn ->
       get conn, bin_path(conn, :show, key)
-    end 
+    end
 
     {_, _, body} = assert_error_sent 404, fn ->
       get conn, bin_path(conn, :show, key)
@@ -65,7 +65,7 @@ defmodule RequestBin.BinControllerTest do
     methods = [:get, :options, :patch, :post, :put, :delete, :connect, :trace]
     bin = Repo.insert!(%Bin{})
 
-    Enum.each(methods, fn (method) -> 
+    Enum.each(methods, fn (method) ->
       conn = conn()
       conn = dispatch(conn, @endpoint, method, bin_path(conn, :show, bin.name))
       assert text_response(conn, 200) =~ "ok", "Did not match with method #{method}"
